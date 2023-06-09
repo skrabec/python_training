@@ -14,13 +14,13 @@ def app(request):
 
 
 def test_add_group(app):
-    app.login("admin", "secret")
+    app.session.login("admin", "secret")
     app.create_new_group(Group("test", "test", "teeest"))
-    app.logout()
+    app.session.logout()
 
 
 def test_add_empy_group(app):
-    app.login("admin", "secret")
+    app.session.login("admin", "secret")
     app.create_new_group(Group("", "", ""))
-    app.logout()
+    app.session.logout()
 
