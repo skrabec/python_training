@@ -18,23 +18,6 @@ class test_add_group(unittest.TestCase):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
 
-    def test_add_group(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, "admin", "secret")
-        self.open_groups_page(wd)
-        self.create_new_group(wd, Group("test", "test", "teeest"))
-        self.return_to_groups_page(wd)
-        self.logout(wd)
-
-    def test_add_empy_group(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, "admin", "secret")
-        self.open_groups_page(wd)
-        self.create_new_group(wd, Group("", "", ""))
-        self.return_to_groups_page(wd)
-        self.logout(wd)
 
     def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
@@ -43,6 +26,7 @@ class test_add_group(unittest.TestCase):
         wd.find_element(By.LINK_TEXT, "group page").click()
 
     def create_new_group(self, wd, group):
+        self.open_groups_page(wd)
         wd.find_element(By.NAME, "new").click()
         wd.find_element(By.NAME, "group_name").click()
         wd.find_element(By.NAME, "group_name").clear()
@@ -54,11 +38,13 @@ class test_add_group(unittest.TestCase):
         wd.find_element(By.NAME, "group_footer").clear()
         wd.find_element(By.NAME, "group_footer").send_keys(group.footer)
         wd.find_element(By.NAME, "submit").click()
+        self.return_to_groups_page(wd)
 
     def open_groups_page(self, wd):
         wd.find_element(By.LINK_TEXT, "groups").click()
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         wd.find_element(By.NAME, "user").click()
         wd.find_element(By.NAME, "user").clear()
         wd.find_element(By.NAME, "user").send_keys(username)
@@ -68,6 +54,18 @@ class test_add_group(unittest.TestCase):
 
     def open_home_page(self, wd):
         wd.get("https://localhost/addressbook/")
+
+    def test_add_group(self):
+        wd = self.wd
+        self.login(wd, "admin", "secret")
+        self.create_new_group(wd, Group("test", "test", "teeest"))
+        self.logout(wd)
+
+    def test_add_empy_group(self):
+        wd = self.wd
+        self.login(wd, "admin", "secret")
+        self.create_new_group(wd, Group("", "", ""))
+        self.logout(wd)
 
     def tearDown(self):
         self.wd.quit()
