@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.webdriver import WebDriver
 import unittest
-from contact import Contact
+from model.contact import Contact
 
 
 def is_alert_present(wd):
