@@ -18,4 +18,6 @@ class SessionHelper:
 
     def logout(self):
         wd = self.app.wd
+        wd.implicitly_wait(1000)
         wd.find_element(By.LINK_TEXT, "Logout").click()
+
