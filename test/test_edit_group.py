@@ -1,7 +1,7 @@
 from model.group import Group
 
 
-def test_add_group(app):
+def test_edt_group(app):
     app.group.edit_first_group(Group("test", "test", "teeest"))
 
 

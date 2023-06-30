@@ -17,7 +17,6 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
-        self.return_to_home_page()
         self.open_add_new_contact_page()
         # fill contact form
         wd.find_element(By.NAME, "firstname").click()
