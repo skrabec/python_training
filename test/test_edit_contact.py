@@ -1,14 +1,31 @@
+from random import randrange
+
 from model.contact import Contact
 
 
-def test_edit_contact(app):
+def test_modify_contact_by_lastname(app):
+    if app.contact.count() == 0:
+        app.contact.create(Contact(lastname="new_for_remove"))
+    old_contacts = app.contact.get_contact_list()
+    index = randrange(len(old_contacts))
+    contact = Contact(lastname="new_lastname")
+    contact.id = old_contacts[index].id
+    app.contact.modify_contact_by_index(index, contact)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[index].lastname = contact.lastname
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+
+
+def test_modify_contact_by_firstname(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="new_for_remove"))
-    app.contact.edit_first_contact(Contact(firstname="firstname", middlename="middlename", lastname="lastname",
-                                           nickname="nickname", title="ttl",
-                               company="cmp", address="adr1", home="111111", mobile="222222", work="333333",
-                               fax="444444",
-                               email="mail@mail.com", email2="mail2@mail.com", email3="mail3@mail.com",
-                               homepage="www.hopg.com", bday="7", bmonth="July", byear="1977",
-                               aday="10", amonth="October", ayear="2010", address2="adr2", phone2="555555",
-                               notes="test"))
+    old_contacts = app.contact.get_contact_list()
+    index = randrange(len(old_contacts))
+    contact = Contact(firstname="new_lastname")
+    contact.id = old_contacts[index].id
+    app.contact.modify_contact_by_index(index, contact)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[index].firstname = contact.firstname
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
