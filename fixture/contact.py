@@ -63,6 +63,7 @@ class ContactHelper:
         # submit form
         wd.find_element(By.NAME, "submit").click()
         self.open_home_page()
+        self.contact_cache = None
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -70,9 +71,7 @@ class ContactHelper:
         wd.find_element(By.NAME, "selected[]").click()
         wd.find_element(By.XPATH, "//input[@type='button' and @value='Delete']").click()
         wd.switch_to.alert.accept()
-
-    def edit_first_contact(self):
-        self.modify_contact_by_index(0)
+        self.contact_cache = None
 
     def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
