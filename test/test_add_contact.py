@@ -5,12 +5,12 @@ from model.contact import Contact
 
 def test_add_contact(app):
     old_contacts = app.contact.get_contact_list()
-    contact = Contact(firstname="fn", middlename="mn", lastname="ln", nickname="nn", title="ttl",
-                      company="cmp", address="adr1", home="111111", mobile="222222", work="333333",
+    contact = Contact(firstname="1", middlename="2", lastname="3", nickname="nn", title="ttl",
+                      company="cmp", address="adr1", home_phone="111111", mobile_phone="222222", work_phone="333333",
                       fax="444444",
                       email="mail@mail.com", email2="mail2@mail.com", email3="mail3@mail.com",
                       homepage="www.hopg.com", bday="7", bmonth="July", byear="1977",
-                      aday="10", amonth="October", ayear="2010", address2="adr2", phone2="555555",
+                      aday="10", amonth="October", ayear="2010", address2="adr2", secondary_phone="555555",
                       notes="test")
     app.contact.create(contact)
     new_contacts = app.contact.get_contact_list()
